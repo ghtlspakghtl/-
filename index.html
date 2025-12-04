@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경선식 중학 단어 뜻 시험</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .quiz-status {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .word-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #34495e;
+            margin: 30px 0;
+            min-height: 50px; /* 단어가 로딩되기 전 공간 확보 */
+        }
+        input[type="text"] {
+            padding: 12px;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #submit-btn {
+            background-color: #3498db;
+            color: white;
+            margin-right: 10px;
+        }
+        #submit-btn:hover {
+            background-color: #2980b9;
+        }
+        #next-btn {
+            background-color: #2ecc71;
+            color: white;
+            display: none; /* 초기에는 숨김 */
+        }
+        #next-btn:hover {
+            background-color: #27ae60;
+        }
+        .feedback {
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            min-height: 25px;
+        }
+        .correct {
+            color: #2ecc71;
+        }
+        .wrong {
+            color: #e74c3c;
+        }
+        /* 결과 화면 스타일 */
+        .result-screen h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .result-screen p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="quiz-screen">
+            <h1>📝 중학 단어 뜻 시험</h1>
+            <p class="quiz-status" id="quiz-status">단어 로딩 중...</p>
+            <div class="word-display" id="word-display"></div>
+            
+            <input type="text" id="answer-input" placeholder="여기에 뜻을 입력해">
+            <div class="action-buttons">
+                <button id="submit-btn">정답 확인</button>
+                <button id="next-btn">다음 단어 →</button>
+            </div>
+            
+            <div class="feedback" id="feedback-message"></div>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            <h2>🎉 시험 종료! 잘 했어.</h2>
+            <p id="final-score"></p>
+            <button onclick="location.reload()">다시 시작</button>
+        </div>
+    </div>
+
+    <script>
+        // Lecture 13 & 14 단어 목록 (파이썬 코드에서 가져옴)
+        const wordList = [
+            // Lecture 13
+            {english: "valley", korean: "골짜기"},
+            {english: "ankle", korean: "발목"},
+            {english: "beat", korean: "때리다"},
+            {english: "senior", korean: "선임의"},
+            {english: "junior", korean: "손아래의"},
+            {english: "future", korean: "미래"},
+            {english: "coast", korean: "해안"},
+            {english: "downstairs", korean: "아래층에"},
+            {english: "upstairs", korean: "위층에"},
+            {english: "homework", korean: "숙제"},
+            {english: "bitter", korean: "쓴, 괴로운"},
+            {english: "patient", korean: "인내심이 강한"},
+            {english: "international", korean: "국제간의"},
+            {english: "main", korean: "주요한"},
+            {english: "earn", korean: "벌다"},
+            {english: "whole", korean: "전부"},
+            {english: "selfish", korean: "이기적인"},
+            {english: "dialog", korean: "대화"},
+            {english: "almost", korean: "거의"},
+            {english: "silence", korean: "침묵"},
+            {english: "beach", korean: "해변"},
+            // Lecture 14
+            {english: "different", korean: "서로 다른"},
+            {english: "reach", korean: "도착하다"},
+            {english: "owl", korean: "올빼미"},
+            {english: "beer", korean: "맥주"},
+            {english: "pass", korean: "통과하다"},
+            {english: "passenger", korean: "승객"},
+            {english: "path", korean: "보도"},
+            {english: "pillow", korean: "베개"},
+            {english: "natural", korean: "자연의"},
+            {english: "reason", korean: "이유, 동기"},
+            {english: "steal", korean: "훔치다"},
+            {english: "usual", korean: "보통의"},
+            {english: "unusual", korean: "이상한"},
+            {english: "bring", korean: "가져오다"},
+            {english: "society", korean: "사회"},
+            {english: "still", korean: "아직"},
+            {english: "theater", korean: "극장"},
+            {english: "deliver", korean: "배달하다"},
+            {english: "mostly", korean: "대개는"},
+            {english: "original", korean: "최초의"}
+        ];
+
+        let shuffledWords = [];
+        let currentWordIndex = 0;
+        let score = 0;
+        const totalWords = wordList.length;
+
+        const wordDisplay = document.getElementById('word-display');
+        const answerInput = document.getElementById('answer-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const quizStatus = document.getElementById('quiz-status');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const finalScore = document.getElementById('final-score');
+
+        // 단어 목록 섞기
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startQuiz() {
+            // 단어 섞고 변수 초기화
+            shuffledWords = [...wordList]; // 원본 훼손 방지
+            shuffleArray(shuffledWords);
+            currentWordIndex = 0;
+            score = 0;
+
+            // UI 초기화
+            quizScreen.classList.remove('hidden');
+            resultScreen.classList.add('hidden');
+            nextWord();
+        }
+
+        function nextWord() {
+            // 다음 단어로 이동
+            if (currentWordIndex >= totalWords) {
+                showResults();
+                return;
+            }
+
+            const currentWord = shuffledWords[currentWordIndex];
+            
+            // UI 업데이트
+            quizStatus.textContent = `${currentWordIndex + 1}/${totalWords} 번째 단어`;
+            wordDisplay.textContent = currentWord.english;
+            answerInput.value = ''; // 입력 필드 초기화
+            feedbackMessage.textContent = ''; // 피드백 초기화
+            feedbackMessage.className = 'feedback';
+            
+            submitBtn.style.display = 'inline-block';
+            nextBtn.style.display = 'none'; // '다음' 버튼 숨기기
+            answerInput.disabled = false;
+            answerInput.focus(); // 입력 포커스
+        }
+
+        function checkAnswer() {
+            const currentWord = shuffledWords[currentWordIndex];
+            const userAnswer = answerInput.value.trim().toLowerCase().replace(/\s/g, ''); // 공백 제거
+            
+            // 정답의 여러 뜻을 쉼표로 분리하고 공백 제거 후 배열로 만듦
+            const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, ''));
+
+            if (correctMeanings.includes(userAnswer)) {
+                // 정답인 경우
+                feedbackMessage.textContent = `✅ 딩동댕! 정답이야. (${currentWord.korean})`;
+                feedbackMessage.classList.remove('wrong');
+                feedbackMessage.classList.add('correct');
+                score++;
+                
+                // 정답 맞추면 '다음' 버튼 활성화
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+                answerInput.disabled = true;
+
+            } else {
+                // 오답인 경우
+                feedbackMessage.textContent = `❌ 틀렸어. 다시 생각해봐. (힌트: 정답은 ${currentWord.korean} 중 하나야)`;
+                feedbackMessage.classList.remove('correct');
+                feedbackMessage.classList.add('wrong');
+            }
+        }
+
+        function showResults() {
+            // 결과 화면 표시
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.textContent = `총 ${totalWords}개 중 ${score}개 정답! (${(score / totalWords * 100).toFixed(1)}점)`;
+        }
+
+        // 이벤트 리스너 설정
+        submitBtn.addEventListener('click', checkAnswer);
+        nextBtn.addEventListener('click', () => {
+            currentWordIndex++;
+            nextWord();
+        });
+        
+        // 엔터키로 정답 확인/다음 단어 넘기기
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (nextBtn.style.display === 'inline-block') {
+                    // 다음 버튼이 보이면 (정답을 맞췄으면) 다음 단어로
+                    e.preventDefault();
+                    nextBtn.click();
+                } else {
+                    // 정답 확인 버튼이 보이면 (아직 정답을 못 맞췄으면) 정답 확인
+                    e.preventDefault();
+                    submitBtn.click();
+                }
+            }
+        });
+
+        // 퀴즈 시작
+        startQuiz();
+    </script>
+</body>
+</html>
