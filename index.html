@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>경선식 중학 단어 뜻 시험 (학습 모드)</title>
+    <title>경선식 중학 단어 학습 및 오답 노트</title>
     <style>
-        /* 기본 스타일은 이전 버전과 동일 */
+        /* 기본 스타일 */
         body {
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
             background-color: #f4f7f6;
@@ -14,6 +14,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px; /* 오답 노트 공간 확보 */
         }
         .container {
             background-color: #ffffff;
@@ -21,12 +22,12 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 600px;
+            max-width: 700px; /* 오답 노트 공간 확보 */
             text-align: center;
         }
         h1 {
             color: #2c3e50;
-            border-bottom: 3px solid #f39c12; /* 색상 변경해서 학습 모드 강조 */
+            border-bottom: 3px solid #f39c12; 
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
@@ -53,7 +54,7 @@
             transition: border-color 0.3s;
         }
         input[type="text"]:focus {
-            border-color: #f39c12; /* 색상 변경 */
+            border-color: #f39c12;
             outline: none;
         }
         button {
@@ -65,7 +66,7 @@
             transition: background-color 0.3s;
         }
         #submit-btn {
-            background-color: #f39c12; /* 색상 변경 */
+            background-color: #f39c12;
             color: white;
             margin-right: 10px;
         }
@@ -92,7 +93,7 @@
         .wrong {
             color: #e74c3c;
         }
-        /* 결과 화면 스타일 */
+        /* 결과 화면 및 오답 노트 스타일 */
         .result-screen h2 {
             color: #2c3e50;
             margin-bottom: 15px;
@@ -100,10 +101,40 @@
         .result-screen p {
             font-size: 1.5em;
             font-weight: bold;
-            color: #f39c12; /* 색상 변경 */
+            color: #f39c12;
         }
         .hidden {
             display: none;
+        }
+
+        #wrong-answers {
+            margin-top: 40px;
+            text-align: left;
+            border-top: 2px solid #ecf0f1;
+            padding-top: 20px;
+        }
+        #wrong-answers h3 {
+            color: #e74c3c;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        #wrong-answers ul {
+            list-style: none;
+            padding: 0;
+        }
+        #wrong-answers li {
+            background-color: #fde7e5;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        #wrong-answers li strong {
+            color: #c0392b; /* 오답 강조 */
+        }
+        #wrong-answers li span {
+            font-weight: bold;
+            color: #3498db; /* 정답 강조 */
         }
     </style>
 </head>
@@ -127,6 +158,9 @@
             <h2>모의 테스트가 종료되었습니다.</h2>
             <p id="final-score"></p>
             <button onclick="location.reload()">다시 시작</button>
+            
+            <div id="wrong-answers">
+                </div>
         </div>
     </div>
 
@@ -182,6 +216,8 @@
         let currentWordIndex = 0;
         let score = 0;
         const totalWords = wordList.length;
+        // 🚨 오답을 기록할 배열 추가
+        let wrongAnswers = []; 
 
         const wordDisplay = document.getElementById('word-display');
         const answerInput = document.getElementById('answer-input');
@@ -192,6 +228,7 @@
         const quizScreen = document.getElementById('quiz-screen');
         const resultScreen = document.getElementById('result-screen');
         const finalScore = document.getElementById('final-score');
+        const wrongAnswersDiv = document.getElementById('wrong-answers'); // 오답 노트 영역 DOM
 
         // 단어 목록 섞기 함수
         function shuffleArray(array) {
@@ -206,6 +243,7 @@
             shuffleArray(shuffledWords);
             currentWordIndex = 0;
             score = 0;
+            wrongAnswers = []; // 시험 시작 시 오답 기록 초기화
 
             quizScreen.classList.remove('hidden');
             resultScreen.classList.add('hidden');
@@ -227,44 +265,77 @@
             feedbackMessage.className = 'feedback';
             
             submitBtn.style.display = 'inline-block';
-            nextBtn.style.display = 'none'; // '다음' 버튼 숨기기
+            nextBtn.style.display = 'none';
             answerInput.disabled = false;
             answerInput.focus();
         }
 
         function checkAnswer() {
             const currentWord = shuffledWords[currentWordIndex];
-            // 입력값 정리: 앞뒤 공백 제거, 소문자화, 내부 공백 모두 제거
-            const userAnswer = answerInput.value.trim().toLowerCase().replace(/\s/g, ''); 
+            const userAnswer = answerInput.value.trim(); // 오답 노트에 보여줄 때는 공백을 제거하지 않음
+            const cleanedUserAnswer = userAnswer.toLowerCase().replace(/\s/g, ''); // 채점용
             
-            // 정답 목록 정리: 쉼표로 분리, 앞뒤 공백 제거, 소문자화, 내부 공백 모두 제거
             const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, ''));
 
-            if (correctMeanings.includes(userAnswer)) {
+            if (correctMeanings.includes(cleanedUserAnswer)) {
                 // ✅ 정답인 경우
-                feedbackMessage.textContent = `**정답**`;
+                feedbackMessage.textContent = `**정답입니다.**`;
                 feedbackMessage.classList.remove('wrong');
                 feedbackMessage.classList.add('correct');
                 score++;
                 
             } else {
-                // ❌ 오답인 경우: 바로 답 알려주고 점수는 안 줌
-                feedbackMessage.textContent = `틀렸습니다. 정답: '**${currentWord.korean}**' 입니다.`;
+                // ❌ 오답인 경우: 오답을 기록하고 답을 알려줌
+                feedbackMessage.textContent = `틀렸습니다. 정답은 '**${currentWord.korean}**' 입니다.`;
                 feedbackMessage.classList.remove('correct');
                 feedbackMessage.classList.add('wrong');
+                
+                // 🚨 오답 정보 기록
+                wrongAnswers.push({
+                    english: currentWord.english,
+                    userAnswer: userAnswer || "(입력 안함)", // 사용자가 아무것도 입력 안 했을 때 처리
+                    correctAnswer: currentWord.korean
+                });
             }
             
             // 정답이든 오답이든 상관없이 다음으로 넘어갈 수 있게 버튼 변경
             submitBtn.style.display = 'none';
             nextBtn.style.display = 'inline-block';
             answerInput.disabled = true;
-            nextBtn.focus(); // 다음 버튼에 포커스
+            nextBtn.focus();
         }
+
+        // 🚨 오답 목록을 HTML에 표시하는 함수
+        function displayWrongAnswers() {
+            if (wrongAnswers.length === 0) {
+                wrongAnswersDiv.innerHTML = '<h3 style="color:#2ecc71;">🎉 모든 문제를 맞혔어!</h3>';
+                return;
+            }
+
+            let html = '<h3>틀린 단어 목록 (오답 노트)</h3><ul>';
+            
+            wrongAnswers.forEach(item => {
+                html += `
+                    <li>
+                        **${item.english}**<br>
+                        네 답: <strong>${item.userAnswer}</strong><br>
+                        정답: <span>${item.correctAnswer}</span>
+                    </li>
+                `;
+            });
+
+            html += '</ul>';
+            wrongAnswersDiv.innerHTML = html;
+        }
+
 
         function showResults() {
             quizScreen.classList.add('hidden');
             resultScreen.classList.remove('hidden');
             finalScore.textContent = `총 ${totalWords}개 중 ${score}개 정답! (${(score / totalWords * 100).toFixed(1)}점)`;
+            
+            // 🚨 결과 화면에 오답 노트 표시
+            displayWrongAnswers(); 
         }
 
         // 이벤트 리스너 설정
@@ -274,15 +345,13 @@
             nextWord();
         });
         
-        // 엔터키 처리: 다음 버튼이 보이면 Enter로 다음 문제로 넘어가게 함
+        // 엔터키 처리
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                e.preventDefault(); // 기본 Enter 동작(폼 제출 등) 방지
+                e.preventDefault(); 
                 if (submitBtn.style.display === 'inline-block') {
-                    // 정답 확인 중이면 -> 정답 확인 실행
                     submitBtn.click();
                 } else if (nextBtn.style.display === 'inline-block') {
-                    // 다음 버튼이 보이면 -> 다음 문제로 넘어감
                     nextBtn.click();
                 }
             }
