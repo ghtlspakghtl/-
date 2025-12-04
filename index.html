@@ -114,7 +114,7 @@
             <p class="quiz-status" id="quiz-status">단어 로딩 중...</p>
             <div class="word-display" id="word-display"></div>
             
-            <input type="text" id="answer-input" placeholder="여기에 뜻을 입력해">
+            <input type="text" id="answer-input" placeholder="여기에 뜻을 입력해주세요.">
             <div class="action-buttons">
                 <button id="submit-btn">정답 확인</button>
                 <button id="next-btn">다음 단어 →</button>
@@ -242,14 +242,14 @@
 
             if (correctMeanings.includes(userAnswer)) {
                 // ✅ 정답인 경우
-                feedbackMessage.textContent = `✅ **딩동댕! 정답이야.**`;
+                feedbackMessage.textContent = `**정답**`;
                 feedbackMessage.classList.remove('wrong');
                 feedbackMessage.classList.add('correct');
                 score++;
                 
             } else {
                 // ❌ 오답인 경우: 바로 답 알려주고 점수는 안 줌
-                feedbackMessage.textContent = `❌ 틀렸어. **정답은 ${currentWord.korean}** 이야.`;
+                feedbackMessage.textContent = `틀렸습니다. **정답은 ${currentWord.korean}** 입니다.`;
                 feedbackMessage.classList.remove('correct');
                 feedbackMessage.classList.add('wrong');
             }
