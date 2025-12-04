@@ -249,7 +249,7 @@
                 
             } else {
                 // ❌ 오답인 경우: 바로 답 알려주고 점수는 안 줌
-                feedbackMessage.textContent = `틀렸습니다. 정답: **$'{currentWord.korean}'** 입니다.`;
+                feedbackMessage.textContent = `틀렸습니다. 정답: '**${currentWord.korean}**' 입니다.`;
                 feedbackMessage.classList.remove('correct');
                 feedbackMessage.classList.add('wrong');
             }
