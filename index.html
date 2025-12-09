@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>경선식 중학 단어 학습 및 오답 노트</title>
+    <title>경선식 중학 단어 학습 및 오답 노트 (Lecture 17 & 18)</title>
     <style>
         /* 기본 스타일 */
         body {
@@ -165,52 +165,52 @@
     </div>
 
     <script>
-        // Lecture 13 & 14 단어 목록
+        // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
         const wordList = [
-    // 경선식 중학 Lecture 15
-    {english: "both", korean: "둘 다의"},
-    {english: "wonder", korean: "궁금해 하다"},
-    {english: "nickname", korean: "별명"},
-    {english: "pair", korean: "한 쌍"},
-    {english: "cross", korean: "가로지르다"},
-    {english: "across", korean: "가로 질러서"},
-    {english: "crosswalk", korean: "횡단보도"},
-    {english: "carry", korean: "나르다, 운반하다"},
-    {english: "pretty", korean: "예쁜"},
-    {english: "seem", korean: "~처럼 보이다"},
-    {english: "shout", korean: "외치다"},
-    {english: "since", korean: "~이래"},
-    {english: "symbol", korean: "상징"},
-    {english: "grand", korean: "웅장한"},
-    {english: "invent", korean: "발명하다"},
-    {english: "textbook", korean: "교과서"},
-    {english: "cough", korean: "기침"},
-    {english: "ability", korean: "능력, 재능"},
-    {english: "able", korean: "~할 수 있는"},
-    {english: "enable", korean: "~할 수 있게 하다"},
-    {english: "unable", korean: "~할 수 없는"},
-    // 경선식 중학 Lecture 16
-    {english: "courage", korean: "용기"},
-    {english: "encourage", korean: "격려하다"},
-    {english: "discourage", korean: "낙담시키다"},
-    {english: "cage", korean: "우리"},
-    {english: "narrow", korean: "폭이 좁은"},
-    {english: "than", korean: "~에 비하여"},
-    {english: "then", korean: "그때"},
-    {english: "appear", korean: "나타나다"},
-    {english: "disappear", korean: "사라지다"},
-    {english: "thought", korean: "생각하기"},
-    {english: "attend", korean: "~에 출석하다"},
-    {english: "appoint", korean: "지명하다"},
-    {english: "disappoint", korean: "실망시키다"},
-    {english: "bone", korean: "가시, 뼈"},
-    {english: "praise", korean: "칭찬, 칭찬하다"},
-    {english: "send", korean: "보내다, 발송하다"},
-    {english: "absent", korean: "결석한"},
-    {english: "present", korean: "출석하고 있는"},
-    {english: "medicine", korean: "약"},
-    {english: "trick", korean: "속임수, 장난"}
-];
+            // 경선식 중학 Lecture 17
+            {english: "hop", korean: "뛰다"},
+            {english: "search", korean: "수색하다"},
+            {english: "forgive", korean: "용서하다"},
+            {english: "empty", korean: "텅 빈, 비우다"},
+            {english: "mind", korean: "마음, 꺼리다"},
+            {english: "perhaps", korean: "아마도"},
+            {english: "thirsty", korean: "목마른"},
+            {english: "railroad", korean: "철도"},
+            {english: "aloud", korean: "큰 소리로"},
+            {english: "crowd", korean: "군중"},
+            {english: "trousers", korean: "바지"},
+            {english: "within", korean: "~의 안쪽에"},
+            {english: "fall", korean: "떨어지다"},
+            {english: "spread", korean: "퍼뜨리다"},
+            {english: "mind", korean: "부드러운"},
+            {english: "autumn", korean: "가을"},
+            {english: "citizen", korean: "시민, 주민"},
+            {english: "city hall", korean: "시청"},
+            {english: "clown", korean: "어릿광대"},
+            {english: "several", korean: "몇 사람의"},
+            
+            // 경선식 중학 Lecture 18
+            {english: "cancel", korean: "취소하다"},
+            {english: "during", korean: "~동안"},
+            {english: "yet", korean: "아직"},
+            {english: "cost", korean: "가격"},
+            {english: "plant", korean: "식물, 공장"},
+            {english: "yard", korean: "마당, 운동장"},
+            {english: "engineer", korean: "기술자"},
+            {english: "probable", korean: "있음직한"},
+            {english: "downtown", korean: "중심가"},
+            {english: "kingdom", korean: "왕국"},
+            {english: "shore", korean: "바닷가"},
+            {english: "trader", korean: "상인"},
+            {english: "elder", korean: "상위의"},
+            {english: "pea", korean: "완두콩"},
+            {english: "nut", korean: "견과"},
+            {english: "peanut", korean: "땅콩"},
+            {english: "throat", korean: "목구멍"},
+            {english: "lie", korean: "거짓말"},
+            {english: "lay", korean: "누이다, 놓다"},
+            {english: "gift", korean: "선물, 재능"}
+        ];
 
         let shuffledWords = [];
         let currentWordIndex = 0;
@@ -272,10 +272,11 @@
 
         function checkAnswer() {
             const currentWord = shuffledWords[currentWordIndex];
-            const userAnswer = answerInput.value.trim(); // 오답 노트에 보여줄 때는 공백을 제거하지 않음
-            const cleanedUserAnswer = userAnswer.toLowerCase().replace(/\s/g, ''); // 채점용
-            
-            const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, ''));
+            const userAnswer = answerInput.value.trim(); 
+            const cleanedUserAnswer = userAnswer.toLowerCase().replace(/\s/g, '').replace(/,/g, ''); // 채점용: 공백, 쉼표 제거
+
+            // 정답 목록도 공백, 쉼표 제거
+            const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, '').replace(/,/g, ''));
 
             if (correctMeanings.includes(cleanedUserAnswer)) {
                 // ✅ 정답인 경우
@@ -290,10 +291,10 @@
                 feedbackMessage.classList.remove('correct');
                 feedbackMessage.classList.add('wrong');
                 
-                // 🚨 오답 정보 기록
+                // 🚨 오답 정보 기록 (사용자가 입력한 원본 형태 저장)
                 wrongAnswers.push({
                     english: currentWord.english,
-                    userAnswer: userAnswer || "(입력 안함)", // 사용자가 아무것도 입력 안 했을 때 처리
+                    userAnswer: answerInput.value || "(입력 안함)", 
                     correctAnswer: currentWord.korean
                 });
             }
