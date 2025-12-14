@@ -3,166 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>경선식 중학 단어 학습 및 오답 노트 (Lecture 17 & 18)</title>
+    <title>중학 단어 학습 모드 (Airi Kanna Edition)</title>
     <style>
-        /* 기본 스타일 */
+        /* 초기화 및 기본 레이아웃 */
         body {
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
-            background-color: #f4f7f6;
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px; /* 오답 노트 공간 확보 */
         }
         .container {
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px 60px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 700px; /* 오답 노트 공간 확보 */
+            max-width: 450px;
             text-align: center;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #f39c12; 
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .quiz-status {
-            font-size: 1.1em;
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
-        .word-display {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #34495e;
-            margin: 30px 0;
-            min-height: 50px;
-        }
-        input[type="text"] {
-            padding: 12px;
-            width: 80%;
-            max-width: 300px;
-            margin-bottom: 15px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus {
-            border-color: #f39c12;
-            outline: none;
-        }
-        button {
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        #submit-btn {
-            background-color: #f39c12;
-            color: white;
-            margin-right: 10px;
-        }
-        #submit-btn:hover {
-            background-color: #e67e22;
-        }
-        #next-btn {
-            background-color: #2ecc71;
-            color: white;
-            display: none;
-        }
-        #next-btn:hover {
-            background-color: #27ae60;
-        }
-        .feedback {
-            margin-top: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            min-height: 25px;
-        }
-        .correct {
-            color: #2ecc71;
-        }
-        .wrong {
-            color: #e74c3c;
-        }
-        /* 결과 화면 및 오답 노트 스타일 */
-        .result-screen h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        .result-screen p {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #f39c12;
-        }
-        .hidden {
-            display: none;
+            border: 1px solid #e0e0e0;
+            position: relative;
         }
 
+        /* Airi Kanna 로고 스타일링 */
+        .logo-banner {
+            position: absolute;
+            top: -10px; 
+            left: -50px; 
+            width: 100px; /* 크기: 작게 */
+            height: auto;
+            z-index: 10;
+            transform: rotate(-5deg);
+        }
+        .logo-banner img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: 2px solid #9b59b6;
+        }
+
+        /* 퀴즈 요소 스타일링 */
+        .quiz-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 5px;
+        }
+        .separator {
+            border-top: 2px solid #f39c12;
+            width: 100%;
+            margin: 0 auto 30px;
+        }
+        .quiz-status {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .word-display {
+            font-size: 3em;
+            font-weight: bold;
+            color: #34495e;
+            margin: 10px 0 40px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 90%;
+            max-width: 250px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            text-align: center;
+        }
+        button {
+            padding: 10px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #f39c12;
+            color: white;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #e67e22;
+        }
+        .hidden { display: none; }
+        .correct { color: #2ecc71; }
+        .wrong { color: #e74c3c; }
+
+        /* 오답 노트 스타일 */
         #wrong-answers {
-            margin-top: 40px;
+            margin-top: 30px;
             text-align: left;
-            border-top: 2px solid #ecf0f1;
-            padding-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
         }
         #wrong-answers h3 {
             color: #e74c3c;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-        }
-        #wrong-answers ul {
-            list-style: none;
-            padding: 0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
         }
         #wrong-answers li {
-            background-color: #fde7e5;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 5px;
-            font-size: 1em;
+            list-style: disc;
+            margin-left: 20px;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            line-height: 1.4;
         }
-        #wrong-answers li strong {
-            color: #c0392b; /* 오답 강조 */
-        }
-        #wrong-answers li span {
-            font-weight: bold;
-            color: #3498db; /* 정답 강조 */
-        }
-        /* 추가: 이미지 표시를 위한 스타일 */
-        .image-display {
-            margin: 20px 0;
-        }
-        .image-display img {
-            max-width: 100%; /* 화면 크기에 맞게 조절 */
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+
     </style>
 </head>
 <body>
     <div class="container">
+
+        <div class="logo-banner">
+            <img src="무제7_20241201215851.png" alt="Airi Kanna Logo">
+        </div>
+
         <div id="quiz-screen">
-            <h1>📚 중학 단어 학습 모드</h1>
-            
-            <div class="image-display">
-                <img src="Airi Kanna.png" alt="Airi Kanna 로고 이미지" title="Airi Kanna.png">
-            </div>
-                        <p class="quiz-status" id="quiz-status">단어 로딩 중...</p>
+            <div class="quiz-title">📚 중학 단어 학습 모드</div>
+            <div class="separator"></div>
+            
+            <p class="quiz-status" id="quiz-status">단어 로딩 중...</p>
             <div class="word-display" id="word-display"></div>
             
             <input type="text" id="answer-input" placeholder="여기에 뜻을 입력해주세요.">
             <div class="action-buttons">
                 <button id="submit-btn">정답 확인</button>
-                <button id="next-btn">다음 단어 →</button>
+                <button id="next-btn" class="hidden">다음 단어 →</button>
             </div>
             
             <div class="feedback" id="feedback-message"></div>
@@ -173,15 +146,14 @@
             <p id="final-score"></p>
             <button onclick="location.reload()">다시 시작</button>
             
-            <div id="wrong-answers">
-                </div>
+            <div id="wrong-answers"></div>
         </div>
     </div>
 
     <script>
-        // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
+        // ✅ 퀴즈 데이터 및 로직 (이전에 제공했던 전체 코드)
         const wordList = [
-            // 경선식 중학 Lecture 17
+            // 경선식 중학 Lecture 17 & 18 단어 목록
             {english: "hop", korean: "뛰다"},
             {english: "search", korean: "수색하다"},
             {english: "forgive", korean: "용서하다"},
@@ -202,8 +174,6 @@
             {english: "city hall", korean: "시청"},
             {english: "clown", korean: "어릿광대"},
             {english: "several", korean: "몇 사람의"},
-            
-            // 경선식 중학 Lecture 18
             {english: "cancel", korean: "취소하다"},
             {english: "during", korean: "~동안"},
             {english: "yet", korean: "아직"},
@@ -230,7 +200,6 @@
         let currentWordIndex = 0;
         let score = 0;
         const totalWords = wordList.length;
-        // 🚨 오답을 기록할 배열 추가
         let wrongAnswers = []; 
 
         const wordDisplay = document.getElementById('word-display');
@@ -242,9 +211,8 @@
         const quizScreen = document.getElementById('quiz-screen');
         const resultScreen = document.getElementById('result-screen');
         const finalScore = document.getElementById('final-score');
-        const wrongAnswersDiv = document.getElementById('wrong-answers'); // 오답 노트 영역 DOM
+        const wrongAnswersDiv = document.getElementById('wrong-answers');
 
-        // 단어 목록 섞기 함수
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -257,7 +225,7 @@
             shuffleArray(shuffledWords);
             currentWordIndex = 0;
             score = 0;
-            wrongAnswers = []; // 시험 시작 시 오답 기록 초기화
+            wrongAnswers = [];
 
             quizScreen.classList.remove('hidden');
             resultScreen.classList.add('hidden');
@@ -276,10 +244,10 @@
             wordDisplay.textContent = currentWord.english;
             answerInput.value = '';
             feedbackMessage.textContent = '';
-            feedbackMessage.className = 'feedback';
+            feedbackMessage.className = '';
             
-            submitBtn.style.display = 'inline-block';
-            nextBtn.style.display = 'none';
+            submitBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
             answerInput.disabled = false;
             answerInput.focus();
         }
@@ -287,25 +255,20 @@
         function checkAnswer() {
             const currentWord = shuffledWords[currentWordIndex];
             const userAnswer = answerInput.value.trim(); 
-            const cleanedUserAnswer = userAnswer.toLowerCase().replace(/\s/g, '').replace(/,/g, ''); // 채점용: 공백, 쉼표 제거
+            const cleanedUserAnswer = userAnswer.toLowerCase().replace(/\s/g, '').replace(/,/g, '');
 
-            // 정답 목록도 공백, 쉼표 제거
             const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, '').replace(/,/g, ''));
 
             if (correctMeanings.includes(cleanedUserAnswer)) {
-                // ✅ 정답인 경우
-                feedbackMessage.textContent = `**정답입니다.**`;
-                feedbackMessage.classList.remove('wrong');
+                feedbackMessage.textContent = `정답입니다.`;
                 feedbackMessage.classList.add('correct');
+                feedbackMessage.classList.remove('wrong');
                 score++;
-                
             } else {
-                // ❌ 오답인 경우: 오답을 기록하고 답을 알려줌
-                feedbackMessage.textContent = `틀렸습니다. 정답은 '**${currentWord.korean}**' 입니다.`;
-                feedbackMessage.classList.remove('correct');
+                feedbackMessage.textContent = `틀렸습니다. 정답은 '${currentWord.korean}' 입니다.`;
                 feedbackMessage.classList.add('wrong');
+                feedbackMessage.classList.remove('correct');
                 
-                // 🚨 오답 정보 기록 (사용자가 입력한 원본 형태 저장)
                 wrongAnswers.push({
                     english: currentWord.english,
                     userAnswer: answerInput.value || "(입력 안함)", 
@@ -313,30 +276,22 @@
                 });
             }
             
-            // 정답이든 오답이든 상관없이 다음으로 넘어갈 수 있게 버튼 변경
-            submitBtn.style.display = 'none';
-            nextBtn.style.display = 'inline-block';
+            submitBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
             answerInput.disabled = true;
             nextBtn.focus();
         }
 
-        // 🚨 오답 목록을 HTML에 표시하는 함수
         function displayWrongAnswers() {
             if (wrongAnswers.length === 0) {
-                wrongAnswersDiv.innerHTML = '<h3 style="color:#2ecc71;">🎉 모든 문제를 맞혔어!</h3>';
+                wrongAnswersDiv.innerHTML = '<h3>🎉 모든 문제를 맞혔어!</h3>';
                 return;
             }
 
             let html = '<h3>틀린 단어 목록 (오답 노트)</h3><ul>';
             
             wrongAnswers.forEach(item => {
-                html += `
-                    <li>
-                        **${item.english}**<br>
-                        네 답: <strong>${item.userAnswer}</strong><br>
-                        정답: <span>${item.correctAnswer}</span>
-                    </li>
-                `;
+                html += `<li><strong>${item.english}</strong>: (네 답: ${item.userAnswer}) / 정답: ${item.correctAnswer}</li>`;
             });
 
             html += '</ul>';
@@ -349,7 +304,6 @@
             resultScreen.classList.remove('hidden');
             finalScore.textContent = `총 ${totalWords}개 중 ${score}개 정답! (${(score / totalWords * 100).toFixed(1)}점)`;
             
-            // 🚨 결과 화면에 오답 노트 표시
             displayWrongAnswers(); 
         }
 
@@ -364,9 +318,9 @@
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault(); 
-                if (submitBtn.style.display === 'inline-block') {
+                if (!submitBtn.classList.contains('hidden')) {
                     submitBtn.click();
-                } else if (nextBtn.style.display === 'inline-block') {
+                } else if (!nextBtn.classList.contains('hidden')) {
                     nextBtn.click();
                 }
             }
