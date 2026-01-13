@@ -167,47 +167,50 @@
     <script>
         // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
         const wordList = [
-// 경선식 중학 Lecture 29
-{english: "cent", korean: "1센트"}, //
-{english: "century", korean: "1세기"}, //
-{english: "centimeter", korean: "센티미터"}, //
-{english: "centigrade", korean: "섭씨"}, //
-{english: "regret", korean: "후회, 후회하다"}, //
-{english: "research", korean: "연구, 연구하다"}, //
-{english: "repeat", korean: "되풀이하다"}, //
-{english: "recover", korean: "회복하다"}, //
-{english: "remind", korean: "생각나게 하다"}, //
-{english: "return", korean: "돌아오다"}, //
-{english: "unbelievable", korean: "믿겨지지 않는"}, //
-{english: "unhappy", korean: "불행한"}, //
-{english: "unkind", korean: "불친절한"}, //
-{english: "unknown", korean: "알려지지 않은"}, //
-{english: "finish", korean: "끝내다"}, //
-{english: "final", korean: "마지막의"}, //
-{english: "infinite", korean: "무한한"}, //
-{english: "finale", korean: "대단원"}, //
-// 경선식 중학 Lecture 30
-{english: "freedom", korean: "자유"}, //
-{english: "golden", korean: "황금 같은"}, //
-{english: "sunny", korean: "화창한"}, //
-{english: "windy", korean: "바람이 센"}, //
-{english: "musician", korean: "음악가"}, //
-{english: "speech", korean: "연설, 말"}, //
-{english: "dine", korean: "식사하다"}, //
-{english: "actor", korean: "배우"}, //
-{english: "lovely", korean: "사랑스러운"}, //
-{english: "childhood", korean: "어린 시절"}, //
-{english: "flight", korean: "비행"}, //
-{english: "strength", korean: "힘, 세기"}, //
-{english: "length", korean: "길이"}, //
-{english: "height", korean: "높이, 고도"}, //
-{english: "national", korean: "국민의, 국가의"}, //
-{english: "saying", korean: "말, 속담"}, //
-{english: "serve", korean: "~에 봉사하다"}, //
-{english: "servant", korean: "하인"}, //
-{english: "daily", korean: "매일의, 날마다의"}, //
-{english: "friendship", korean: "우정, 교우 관계"}, //
-{english: "alive", korean: "살아 있는"}, //
+// 경선식 중학 Lecture 23
+{english: "frightful", korean: "무서운, 소름끼치는"},
+{english: "safe", korean: "안전한"},
+{english: "save", korean: "구하다, 아끼다"},
+{english: "public", korean: "대중, 공공의"},
+{english: "treat", korean: "대접하다"},
+{english: "load", korean: "짐, 태우다"},
+{english: "pardon", korean: "용서하다"},
+{english: "however", korean: "그러나"},
+{english: "journal", korean: "신문, 잡지"},
+{english: "turtle", korean: "거북이"},
+{english: "toward", korean: "~쪽으로"},
+{english: "examination", korean: "시험, 검사"},
+{english: "example", korean: "예, 보기"},
+{english: "survive", korean: "생존하다, 살아남다"},
+{english: "shuttle", korean: "왕복하다, 왕복 운행"},
+{english: "heel", korean: "뒤꿈치"},
+{english: "port", korean: "항구"},
+{english: "import", korean: "수입하다, 수입"},
+{english: "export", korean: "수출하다, 수출"},
+{english: "passport", korean: "여권"},
+{english: "airport", korean: "공항"},
+// 추가 단어 목록 2
+{english: "common", korean: "공통의, 일반의, 흔한"},
+{english: "mobile", korean: "움직이기 쉬운"},
+{english: "automobile", korean: "자동차"},
+{english: "draw", korean: "끌다, 당기다"},
+{english: "job", korean: "일, 직무, 직업"},
+{english: "rest", korean: "휴식"},
+{english: "ahead", korean: "앞으로, 앞에"},
+{english: "hire", korean: "고용하다"},
+{english: "some", korean: "어떤, 약간의"},
+{english: "something", korean: "어떤 것"},
+{english: "some time", korean: "언젠가"},
+{english: "sometimes", korean: "때때로"},
+{english: "somewhere", korean: "어딘가에"},
+{english: "someone", korean: "누군가, 어떤 사람"},
+{english: "any", korean: "어떤, 어느"},
+{english: "anything", korean: "어떤 것"},
+{english: "anytime", korean: "언제든지"},
+{english: "anybody", korean: "누군가"},
+{english: "anyway", korean: "어쨌든"},
+{english: "anymore", korean: "더 이상 ~않다"},
+{english: "anywhere", korean: "어디에도"},
             ];
         let shuffledWords = [];
         let currentWordIndex = 0;
