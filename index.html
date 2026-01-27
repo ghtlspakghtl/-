@@ -167,50 +167,43 @@
     <script>
         // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
         const wordList = [
-// 경선식 중학 Lecture 31
-{english: "build", korean: "세우다"}, //
-{english: "lead", korean: "이끌다"}, //
-{english: "dive", korean: "잠수하다"}, //
-{english: "ride", korean: "타고가다"}, //
-{english: "single", korean: "독신의, 단 하나의"}, //
-{english: "light", korean: "가벼운, 빛"}, //
-{english: "middle", korean: "중간의"}, //
-{english: "mix", korean: "혼합하다, 섞다"}, //
-{english: "stretch", korean: "늘이다"}, //
-{english: "pay", korean: "지불하다"}, //
-{english: "class", korean: "학급, 반, 수업"}, //
-{english: "lesson", korean: "수업"}, //
-{english: "hill", korean: "언덕"}, //
-{english: "birth", korean: "출생"}, //
-{english: "meat", korean: "고기"}, //
-{english: "roll", korean: "구르다, 회전하다"}, //
-{english: "quick", korean: "빠른"}, //
-{english: "sand", korean: "모래"}, //
-{english: "fantastic", korean: "환상적인, 이상한"}, //
-{english: "cube", korean: "입방체"}, //
-{english: "fin", korean: "지느러미"}, //
-// 경선식 중학 Lecture 32
-{english: "tie", korean: "묶다, 묶는 끈"}, //
-{english: "merry", korean: "즐거운, 명랑한"}, //
-{english: "heat", korean: "열, 더위, 가열하다"}, //
-{english: "shut", korean: "닫다"}, //
-{english: "castle", korean: "성"}, //
-{english: "rank", korean: "계급, 등급"}, //
-{english: "perfect", korean: "완전한, 완벽한"}, //
-{english: "knock", korean: "치다, 두드리다"}, //
-{english: "boil", korean: "끓이다"}, //
-{english: "rent", korean: "빌려주다"}, //
-{english: "self", korean: "자기, 자신"}, //
-{english: "scene", korean: "장면"}, //
-{english: "map", korean: "지도"}, //
-{english: "pack", korean: "꾸러미, 짐을 싸다"}, //
-{english: "flash", korean: "번쩍하다, 섬광"}, //
-{english: "weight", korean: "무게,중량"}, //
-{english: "cash", korean: "현금"}, //
-{english: "magazine", korean: "잡지"}, //
-{english: "palace", korean: "성, 궁전"}, //
-{english: "credit", korean: "신용, 외상"}, //
-{english: "fair", korean: "공평한"}, //
+// 전치사 및 단어 목록
+{english: "at", korean: "~에서(작은 지점)"},
+{english: "in", korean: "~안에(내부)"},
+{english: "on", korean: "~위에(표면에 붙어)"},
+{english: "up", korean: "위로, 위에"},
+{english: "out", korean: "~밖에"},
+{english: "out of", korean: "~의 안에서 밖으로"},
+{english: "into", korean: "~의 밖에서 안으로"},
+{english: "over", korean: "~위에"},
+{english: "under", korean: "~의 아래에"},
+{english: "above", korean: "~위쪽에"},
+{english: "below", korean: "~아래에"},
+{english: "along", korean: "~을 따라서"},
+{english: "across", korean: "~을 가로질러"},
+{english: "through", korean: "~을 통과해서"},
+{english: "beyond", korean: "~의 저쪽에, ~을 넘어"},
+{english: "practice", korean: "연습, 실행"},
+{english: "cucumber", korean: "오이"},
+{english: "rate", korean: "비율, 등급, 요금"},
+{english: "wrist", korean: "손목, 손목 관절"},
+{english: "trust", korean: "신용하다, 신용"},
+{english: "clerk", korean: "사무원, 점원"},
+{english: "mayor", korean: "시장"},
+{english: "temple", korean: "절, 사찰"},
+{english: "Pacific", korean: "태평양, 태평양의"},
+{english: "Atlantic", korean: "대서양, 대서양의"},
+{english: "lake", korean: "호수, 연못"},
+{english: "storm", korean: "폭풍"},
+{english: "violet", korean: "보랏빛"},
+{english: "custom", korean: "관습, 풍습"},
+{english: "customer", korean: "손님, 단골"},
+{english: "blood", korean: "피, 혈액"},
+{english: "bowl", korean: "사발, 그릇"},
+{english: "client", korean: "고객"},
+{english: "rise", korean: "일어서다, 떠오르다"},
+{english: "raise", korean: "올리다, 일으켜 세우다"},
+{english: "movement", korean: "운동, 움직임"},
             ];
         let shuffledWords = [];
         let currentWordIndex = 0;
