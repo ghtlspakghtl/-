@@ -167,43 +167,46 @@
     <script>
         // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
         const wordList = [
-// 전치사 및 단어 목록
-{english: "at", korean: "~에서,작은 지점"},
-{english: "in", korean: "~안에,내부"},
-{english: "on", korean: "~위에,표면에 붙어,"},
-{english: "up", korean: "위로, 위에"},
-{english: "out", korean: "~밖에"},
-{english: "out of", korean: "~의 안에서 ,밖으로"},
-{english: "into", korean: "~의 밖에서, 안으로"},
-{english: "over", korean: "~위에"},
-{english: "under", korean: "~의 아래에"},
-{english: "above", korean: "~위쪽에"},
-{english: "below", korean: "~아래에"},
-{english: "along", korean: "~을 따라서"},
-{english: "across", korean: "~을 가로질러"},
-{english: "through", korean: "~을 통과해서"},
-{english: "beyond", korean: "~의 저쪽에, ~을 넘어"},
-{english: "practice", korean: "연습, 실행"},
-{english: "cucumber", korean: "오이"},
-{english: "rate", korean: "비율, 등급, 요금"},
-{english: "wrist", korean: "손목, 손목 관절"},
-{english: "trust", korean: "신용하다, 신용"},
-{english: "clerk", korean: "사무원, 점원"},
-{english: "mayor", korean: "시장"},
-{english: "temple", korean: "절, 사찰"},
-{english: "Pacific", korean: "태평양, 태평양의"},
-{english: "Atlantic", korean: "대서양, 대서양의"},
-{english: "lake", korean: "호수, 연못"},
-{english: "storm", korean: "폭풍"},
-{english: "violet", korean: "보랏빛"},
-{english: "custom", korean: "관습, 풍습"},
-{english: "customer", korean: "손님, 단골"},
-{english: "blood", korean: "피, 혈액"},
-{english: "bowl", korean: "사발, 그릇"},
-{english: "client", korean: "고객"},
-{english: "rise", korean: "일어서다, 떠오르다"},
-{english: "raise", korean: "올리다, 일으켜 세우다"},
-{english: "movement", korean: "운동, 움직임"},
+{english: "approach", korean: "접근하다"}, //
+{english: "slight", korean: "약간의, 경미한"}, //
+{english: "volunteer", korean: "지원자, 자원봉사자"}, //
+{english: "fury", korean: "격노, 격분, 맹렬함"}, //
+{english: "donkey", korean: "당나귀"}, //
+{english: "temperature", korean: "온도, 기온, 체온"}, //
+{english: "global", korean: "지구의, 세계적인"}, //
+{english: "goat", korean: "염소"}, //
+{english: "devil", korean: "악마, 마귀"}, //
+{english: "chick", korean: "병아리"}, //
+{english: "bull", korean: "황소"}, //
+{english: "goose", korean: "거위"}, //
+{english: "zone", korean: "지대, 지역"}, //
+{english: "sweat", korean: "땀, 땀을 흘리다"}, //
+{english: "grief", korean: "슬픔, 비탄"}, //
+{english: "row", korean: "열, 줄"}, //
+{english: "flat", korean: "평평한, 납작한"}, //
+{english: "generous", korean: "관대한, 너그러운"}, //
+{english: "altogether", korean: "다같이, 함께"}, //
+{english: "construct", korean: "건설하다, 세우다"}, //
+{english: "fairy", korean: "요정"}, //
+{english: "fairy tale", korean: "동화"}, //
+{english: "loosen", korean: "풀다"}, //
+{english: "provide", korean: "공급하다, 주다"}, //
+{english: "loose", korean: "풀린, 헐거운"}, //
+{english: "itch", korean: "가려움"}, //
+{english: "leopard", korean: "표범"}, //
+{english: "divorce", korean: "이혼시키다, 이혼"}, //
+{english: "bark", korean: "짖다, 짖는 소리"}, //
+{english: "peach", korean: "복숭아"}, //
+{english: "actually", korean: "실제로, 사실은"}, //
+{english: "square", korean: "정사각형, 광장"}, //
+{english: "compare", korean: "비교하다"}, //
+{english: "popular", korean: "대중적인, 인기 있는"}, //
+{english: "lawn", korean: "잔디, 잔디밭"}, //
+{english: "risk", korean: "위험, 위태롭게 하다"}, //
+{english: "tap", korean: "가볍게 두드리다"}, //
+{english: "exist", korean: "존재하다"}, //
+{english: "govern", korean: "통치하다, 다스리다"}, //
+{english: "government", korean: "정부"}, //
             ];
         let shuffledWords = [];
         let currentWordIndex = 0;
