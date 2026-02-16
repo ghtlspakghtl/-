@@ -165,54 +165,53 @@
     </div>
 
     <script>
-        // Lecture 17 & 18 단어 목록 (요청에 따라 업데이트)
         const wordList = [
-{english: "approach", korean: "접근하다"}, //
-{english: "slight", korean: "약간의, 경미한"}, //
-{english: "volunteer", korean: "지원자, 자원봉사자"}, //
-{english: "fury", korean: "격노, 격분, 맹렬함"}, //
-{english: "donkey", korean: "당나귀"}, //
-{english: "temperature", korean: "온도, 기온, 체온"}, //
-{english: "global", korean: "지구의, 세계적인"}, //
-{english: "goat", korean: "염소"}, //
-{english: "devil", korean: "악마, 마귀"}, //
-{english: "chick", korean: "병아리"}, //
-{english: "bull", korean: "황소"}, //
-{english: "goose", korean: "거위"}, //
-{english: "zone", korean: "지대, 지역"}, //
-{english: "sweat", korean: "땀, 땀을 흘리다"}, //
-{english: "grief", korean: "슬픔, 비탄"}, //
-{english: "row", korean: "열, 줄"}, //
-{english: "flat", korean: "평평한, 납작한"}, //
-{english: "generous", korean: "관대한, 너그러운"}, //
-{english: "altogether", korean: "다같이, 함께"}, //
-{english: "construct", korean: "건설하다, 세우다"}, //
-{english: "fairy", korean: "요정"}, //
-{english: "fairy tale", korean: "동화"}, //
-{english: "loosen", korean: "풀다"}, //
-{english: "provide", korean: "공급하다, 주다"}, //
-{english: "loose", korean: "풀린, 헐거운"}, //
-{english: "itch", korean: "가려움"}, //
-{english: "leopard", korean: "표범"}, //
-{english: "divorce", korean: "이혼시키다, 이혼"}, //
-{english: "bark", korean: "짖다, 짖는 소리"}, //
-{english: "peach", korean: "복숭아"}, //
-{english: "actually", korean: "실제로, 사실은"}, //
-{english: "square", korean: "정사각형, 광장"}, //
-{english: "compare", korean: "비교하다"}, //
-{english: "popular", korean: "대중적인, 인기 있는"}, //
-{english: "lawn", korean: "잔디, 잔디밭"}, //
-{english: "risk", korean: "위험, 위태롭게 하다"}, //
-{english: "tap", korean: "가볍게 두드리다"}, //
-{english: "exist", korean: "존재하다"}, //
-{english: "govern", korean: "통치하다, 다스리다"}, //
-{english: "government", korean: "정부"}, //
+{english: "sore", korean: "아픈, 쓰린"}, //
+{english: "plain", korean: "쉬운, 보통의, 평원"}, //
+{english: "carton", korean: "풍자화, 만화"}, //
+{english: "nest", korean: "둥지, 보금자리를 짓다"}, //
+{english: "grocery", korean: "식료품류, 식품점"}, //
+{english: "rust", korean: "부식시키다, 녹"}, //
+{english: "company", korean: "동료, 친구, 회사"}, //
+{english: "nuclear", korean: "핵의, 핵무기의"}, //
+{english: "cock", korean: "수탉"}, //
+{english: "blackboard", korean: "칠판"}, //
+{english: "curious", korean: "호기심을 끄는"}, //
+{english: "task", korean: "일, 임무"}, //
+{english: "exclaim", korean: "외치다"}, //
+{english: "brick", korean: "벽돌"}, //
+{english: "millionaire", korean: "백만장자"}, //
+{english: "pronunciation", korean: "발음"}, //
+{english: "apparent", korean: "분명한, 명백한"}, //
+{english: "turkey", korean: "칠면조"}, //
+{english: "hen", korean: "암탉"}, //
+{english: "medium", korean: "중간"}, //
+{english: "insect", korean: "곤충"}, //
+{english: "jar", korean: "항아리, 단지"}, //
+{english: "emigrant", korean: "이주민, 이민"}, //
+{english: "occur", korean: "발생하다"}, //
+{english: "climb", korean: "오르다, 기어오르다"}, //
+{english: "mill", korean: "제분기, 방앗간"}, //
+{english: "windmill", korean: "풍차"}, //
+{english: "interval", korean: "간격, 거리"}, //
+{english: "avoid", korean: "피하다, 회피하다"}, //
+{english: "chopstick", korean: "젓가락"}, //
+{english: "chop", korean: "자르다, 팍팍 찍다"}, //
+{english: "religion", korean: "종교"}, //
+{english: "belong", korean: "~에게 속하다"}, //
+{english: "license", korean: "면허, 허가"}, //
+{english: "pork", korean: "돼지고기"}, //
+{english: "lifelong", korean: "일생의, 생애의"}, //
+{english: "complain", korean: "불평하다"}, //
+{english: "sort", korean: "종류"}, //
+{english: "slope", korean: "경사면, 비탈"}, //
+{english: "fellow", korean: "동무, 친구"}, //
             ];
         let shuffledWords = [];
         let currentWordIndex = 0;
         let score = 0;
         const totalWords = wordList.length;
-        // 🚨 오답을 기록할 배열 추가
+        //  오답을 기록할 배열 추가
         let wrongAnswers = []; 
 
         const wordDisplay = document.getElementById('word-display');
@@ -275,19 +274,19 @@
             const correctMeanings = currentWord.korean.split(',').map(m => m.trim().toLowerCase().replace(/\s/g, '').replace(/,/g, ''));
 
             if (correctMeanings.includes(cleanedUserAnswer)) {
-                // ✅ 정답인 경우
+                //  정답인 경우
                 feedbackMessage.textContent = `**정답입니다.**`;
                 feedbackMessage.classList.remove('wrong');
                 feedbackMessage.classList.add('correct');
                 score++;
                 
             } else {
-                // ❌ 오답인 경우: 오답을 기록하고 답을 알려줌
+                //  오답인 경우: 오답을 기록하고 답을 알려줌
                 feedbackMessage.textContent = `틀렸습니다. 정답은 '**${currentWord.korean}**' 입니다.`;
                 feedbackMessage.classList.remove('correct');
                 feedbackMessage.classList.add('wrong');
                 
-                // 🚨 오답 정보 기록 (사용자가 입력한 원본 형태 저장)
+                //  오답 정보 기록 (사용자가 입력한 원본 형태 저장)
                 wrongAnswers.push({
                     english: currentWord.english,
                     userAnswer: answerInput.value || "(입력 안함)", 
@@ -302,10 +301,10 @@
             nextBtn.focus();
         }
 
-        // 🚨 오답 목록을 HTML에 표시하는 함수
+        //  오답 목록을 HTML에 표시하는 함수
         function displayWrongAnswers() {
             if (wrongAnswers.length === 0) {
-                wrongAnswersDiv.innerHTML = '<h3 style="color:#2ecc71;">🎉 모든 문제를 맞혔어!</h3>';
+                wrongAnswersDiv.innerHTML = '<h3 style="color:#2ecc71;"> 음 섹스 하응</h3>';
                 return;
             }
 
@@ -331,7 +330,7 @@
             resultScreen.classList.remove('hidden');
             finalScore.textContent = `총 ${totalWords}개 중 ${score}개 정답! (${(score / totalWords * 100).toFixed(1)}점)`;
             
-            // 🚨 결과 화면에 오답 노트 표시
+            //  결과 화면에 오답 노트 표시
             displayWrongAnswers(); 
         }
 
@@ -342,7 +341,7 @@
             nextWord();
         });
         
-        // 엔터키 처리
+        // 엔터키 처리(ㅅㅂ 이제 되네 샹)
         answerInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault(); 
@@ -354,7 +353,7 @@
             }
         });
 
-        // 퀴즈 시작
+        // 시험 시작 코드
         startQuiz();
     </script>
 </body>
